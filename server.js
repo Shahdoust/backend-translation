@@ -4,6 +4,8 @@ import colors from "colors";
 import connectDB from "./db/dbinit.js";
 import userRouter from "./routes/user.js";
 import textTranslateRouter from "./routes/deepL.js";
+import translation from "./routes/Translation.js";
+
 
 connectDB();
 

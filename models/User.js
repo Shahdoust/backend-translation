@@ -24,5 +24,6 @@ const userSchema = new mongoose.Schema({
       outputText: [String],
     },
   ],
+
 });
 export default mongoose.model("User", userSchema);
