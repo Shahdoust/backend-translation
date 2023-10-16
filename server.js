@@ -3,6 +3,8 @@ import cors from "cors";
 import colors from "colors";
 import connectDB from "./db/dbinit.js";
 import user from "./routes/user.js";
+import translation from "./routes/Translation.js";
+
 
 connectDB();
 
