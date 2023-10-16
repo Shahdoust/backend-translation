@@ -26,6 +26,10 @@ export const loginUser = async (req, res) => {
       { expiresIn: "1d" }
     );
   }
+  //TODO: whats next?
+  // when we are going to use cookies: cookie-parser!
+  res.cookie("accessToken", token, { httpOnly: true, maxAge: 1800000 }); // 30min
+  res.status(200).send({ status: "success" });
 };
 
 // get user
@@ -40,3 +44,39 @@ export const getUser = (req, res) => {
   }
 };
 // register
+export const registerUser = async (req, res, next) => {
+  /*
+    Check if user exists (username)
+        - If user exists, return an Error (already exists)
+        - If user doesn't exist:
+            - Secure the pw with bcrypt
+            - Store the user in DB
+            - Sign a token
+            - Return the token
+*/
+  const { username, password } = req.body;
+
+  const existingUser = await User.findOne({ username });
+  if (existingUser)
+    throw new ErrorResponse(
+      "An account with this Username already exists",
+      409
+    );
+
+  const hash = await bcrypt.hash(password, 10); // 10 is ok for this project
+  const newUser = await User.create({
+    username,
+    password: hash,
+  });
+
+  const token = jwt.sign({ uid: newUser._id }, process.env.ACCESS_TOKEN_SECRET);
+
+  res.status(201).send({ status: "success" });
+};
+
+export const logoutUser = async (req, res, next) => {
+  return res
+    .clearCookie("accessToken")
+    .status(200)
+    .json({ message: "Successfully logged out 😏 🍀" });
+};

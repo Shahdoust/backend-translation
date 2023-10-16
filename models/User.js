@@ -16,8 +16,14 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  // last_translations: [
-  //   { fromLanguage: "", toLanguage: "", inputText: "", outputText: "" },
-  // ],
+  last_translations: [
+    {
+      fromLanguage: [String],
+      toLanguage: [String],
+      inputText: [String],
+      outputText: [String],
+    },
+  ],
+
 });
 export default mongoose.model("User", userSchema);
