@@ -12,20 +12,22 @@ export const loginUser = asyncHandler(async (req, res) => {
       .json({ message: "Username and password are required." });
   }
 
-  const foundUser = await User.findOne({ username });
+  const foundUser = await User.findOne({ username }).select("+password");
   if (!foundUser) return res.sendStatus(404);
 
-  const match = await bcrypt.compare(password, foundUser.password);
-  if (match) {
-    const accessToken = jwt.sign(
-      {
-        username: foundUser.username,
-      },
-      process.env.ACCESS_TOKEN_SECRET
-    );
+  //const match = await bcrypt.compare(password, foundUser.password);
+  console.log(foundUser);
+  if (password === foundUser.password) {
+    res.status(200).send({ status: "success" });
+    // const accessToken = jwt.sign(
+    //   {
+    //     username: foundUser.username,
+    //   },
+    //   process.env.ACCESS_TOKEN_SECRET
+    // );
   }
-  res.cookie("accessToken", token, { httpOnly: true, maxAge: 1800000 }); // 30min
-  res.status(200).send({ status: "success" });
+  // res.cookie("accessToken", accessToken, { httpOnly: true, maxAge: 1800000 }); // 30min
+  // res.status(200).send({ status: "success" });
 });
 
 // get user
