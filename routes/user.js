@@ -10,4 +10,6 @@ userRouter.get("/:username", userController.getUser);
 userRouter.post("/login", userController.loginUser);
 
 // register user
-userRouter.post("/register", userController.registerUser);
+// userRouter.post("/register", userController.registerUser);
+
+export default userRouter;
