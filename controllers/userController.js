@@ -60,10 +60,15 @@ export const registerUser = asyncHandler(async (req, res, next) => {
       409
     );
 
-  const hash = await bcrypt.hash(password, 10);
+  // const hash = await bcrypt.hash(password, 10);
+  // const newUser = await User.create({
+  //   username,
+  //   password: hash,
+  // });
+
   const newUser = await User.create({
     username,
-    password: hash,
+    password: password,
   });
 
   const token = jwt.sign({ uid: newUser._id }, process.env.ACCESS_TOKEN_SECRET);
