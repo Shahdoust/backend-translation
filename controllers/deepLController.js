@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const textTranslator = async (req, res, next) => {
   try {
     const { data } = await axios.post(

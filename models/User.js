@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
-    required: [true, "Email is required"],
+    required: [true, "Username is required"],
   },
   password: {
     type: String,
@@ -24,6 +24,5 @@ const userSchema = new mongoose.Schema({
       outputText: [String],
     },
   ],
-
 });
 export default mongoose.model("User", userSchema);

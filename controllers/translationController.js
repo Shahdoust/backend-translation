@@ -4,7 +4,7 @@ export const getOneTranslation = async (req, res) => {
   // const {translation}
 };
 
-const textTranslator = async (req, res, next) => {
+export const textTranslator = async (req, res, next) => {
   try {
     const { data } = await axios.post(
       "https://api-free.deepl.com/v2/translate",
